@@ -5,103 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
-    <title>Pokedex</title>
+    <title>easy Pokedex</title>
 </head>
-<style>
-    body{
-        background-color: red;
-        margin: 0;
-        color: white;
-        
-    }
-    .card {
-        list-style: none;
-        padding: 40px;
-        background-color: #f4f4f4;
-        color: #222;    
-        text-align: center;
-    }
-    .card:hover{
-        cursor: pointer;
-        animation: bounce 0.5s linear;
-    }
-    @keyframes bounce{
-        20% {
-            transform: translateY(-6px);
-        }
-        40% {
-            transform: translateY(0px);
-        }
-        60% {
-            transform: translateY(-6px);
-        }
-        80% {
-            transform: translateY(0px);
-        }
-    }
-    .card-title{
-        text-transform: uppercase;
-        font-style: 32px;
-        font-weight: bold;
-        margin-bottom: 0;
-    }
-    
-    .card-subtitle{
-        color: #666;
-        margin-top: 5px;
-        font-weight: lighter;
-    }
-    .card-img{ 
-        height: 180px;}
-    #pokedex{
-        padding-inline-start: 0;
-        display: grid;
-        grid-template-columns: repeat(auto-fit,minmax(320px,1fr));
-        grid-gap: 20px;
-    }
-    .container{
-        padding: 40px;
-        margin: 0 auto;
-    }
-    h1{
-    text-transform: uppercase;
-    text-align: center;
-    font-size: 54px;
-    }
-    
-    .popup{
-        position: fixed;
-        top:0;
-        left: 0;
-        height: 100vh;
-        width: 100vw;
-        background: #f4f4f4;
-        opacity: 0.95;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-    #closeBtn{
-        position: absolute;
-        top:20px;
-        right: 20px;
-    
-    }
-    button{
-        background: red;
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        border-radius: 3px;
-        transition: tranceform 100ms;
-    }
-    button:hover{
-        cursor: pointer;
-        transform: translateY(-1px);
-        box-shadow: 0px 1px 2px;
-    }
-
-</style>
 <body>
     <div class="container">
 
@@ -111,72 +16,8 @@
     </div>
     
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-    <script>
-        const pokedex = document.getElementById("pokedex");
-const pokeCache = {};
-console.log(pokedex);
-const fetchpokemon = async () => {
-    const url = 'https://pokeapi.co/api/v2/pokemon?limit=649';
-    const res = await fetch(url);
-    const data = await res.json();
-    console.log(data);
-    const pokemon = data.results.map((result, index) => ({
-        ...result,
-        id: index + 1,
-        img: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index + 1}.png`,
-
-
-    }));
-    displaypokemon(pokemon);
-}
-function displaypokemon(pokemon) {
-    const html = pokemon.map(pokeman =>
-        ` <li class = "card" onclick="selectPokemon(${pokeman.id})">
-            <img class = "card-img" src="${pokeman.img}"/>
-            <h2 class = "card-title">${pokeman.id}.${pokeman.name}</h2>
-           
-        </li> `).join(' ');
-    pokedex.innerHTML = html;
-}
-const selectPokemon = async (id) => {
-    if(!pokeCache[id]){
-    const url = `https://pokeapi.co/api/v2/pokemon/${id}`;
-    const res = await fetch(url);
-    const pokeman = await res.json();
-    pokeCache[id] = pokeman;
-    console.log(pokeCache)
-    displayPopup(pokeman);
-    }else{
-        displayPopup(pokeCache[id]);
-    }
-    
-}
-const displayPopup = (pokeman) => {
-    console.log(pokeman);
-    const type = pokeman.types.map((type) => type.type.name).join(', ');
-    const image = pokeman.sprites['front_default'];
-    const htmlString = `
-        <div class="popup">
-            <button id="closeBtn" onclick="closePopup()">Close</button>
-                <div class = "card">
-                    <img class = "card-img" src="${image}"/>
-                    <h2 class = "card-title">${pokeman.id}.${pokeman.name}</h2>
-                    <p>
-                        <small>Height:</small>${pokeman.height} |  <small>weight:</small>${pokeman.weight} | 
-                        <small>Types:</small>${type}
-                    </p>
-                </div> 
-        </div>`;
-        pokedex.innerHTML = htmlString + pokedex.innerHTML;
-
-};
-const closePopup = () =>{
-    const popup = document.querySelector('.popup');
-    popup.parentElement.removeChild(popup);
-};
-
-fetchpokemon();
-    
+    <script src="js/api.js">
+      
     </script>
 </body>
 </html>
