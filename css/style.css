@@ -1,13 +1,15 @@
 body{
-    background-color: red;
-    margin: 0;
+    width: 1200px;
+    background-color: rgb(34, 31, 31);
+    margin: 0 auto;
     color: white;
     
 }
 .card {
+    border-radius: 30px;
     list-style: none;
     padding: 40px;
-    background-color: #f4f4f4;
+    background-color: #ffffff;
     color: #222;    
     text-align: center;
 }
@@ -65,7 +67,7 @@ font-size: 54px;
     left: 0;
     height: 100vh;
     width: 100vw;
-    background: #f4f4f4;
+    background: #474444;
     opacity: 0.95;
     display: flex;
     justify-content: center;
